@@ -5,7 +5,7 @@ An object fetch manager for [backbone.layoutmanager](https://github.com/tbranyen
 
 ### Overview
 
-Backbone.fetchmanager is a plugin for [backbone.layoutmanager](https://github.com/tbranyen/backbone.layoutmanager) that enables a clean organization of view objects and view fetch methods. It recursively fetches view objects and adds references to a their respective views and nested views. I will refer to Backbone models &amp; collections as Backbone objects.
+Backbone.fetchmanager is a plugin for [backbone.layoutmanager](https://github.com/tbranyen/backbone.layoutmanager) that enables a clean organization of view objects and view fetch methods. It recursively fetches view objects and adds references to their respective views and nested views. I will refer to Backbone models &amp; collections as Backbone objects.
 
 I tend to end up in the following situation all of the time:
 
