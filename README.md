@@ -73,4 +73,4 @@ $.when(view.fetchObjects()).then(function() {
 ```
 
 ### Support
-Please let me know what you think of this approach and if you have any thoughts suggestions!
+Please let me know what you think of this approach and if you have any thoughts and/or suggestions!
