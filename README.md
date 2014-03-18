@@ -1,7 +1,7 @@
 FetchManager
 =====================
 
-An object fetch manager for backbone.layoutmanager.
+An object fetch manager for [backbone.layoutmanager](https://github.com/tbranyen/backbone.layoutmanager).
 
 ### Overview
 
