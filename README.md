@@ -17,6 +17,13 @@ $.when(model.fetch(), collection.fetch(), ...).then(function() {
   });
 });
 ```
+I thought it could be nice to have a library to alleviate this as well as adding instance references. Here's what it simplifies your router code to:
+```
+var view = new View();
+$.when(view.fetchObjects).then(function() { 
+  view.render();
+});
+```
 This library attempts to simplify router code and organizes backbone models and collections in their respective views. On top of the general functionality, there are a couple of extras included in the library as described below.
 
 ### Documentation
