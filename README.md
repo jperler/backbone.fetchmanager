@@ -20,7 +20,7 @@ $.when(model.fetch(), collection.fetch(), ...).then(function() {
 I thought it could be nice to have a library to alleviate this as well as adding instance references. Here's what it simplifies your router code to:
 ```
 var view = new View();
-$.when(view.fetchObjects).then(function() { 
+$.when(view.fetchObjects()).then(function() { 
   view.render();
 });
 ```
