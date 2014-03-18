@@ -65,9 +65,11 @@ var view = Backbone.Layout.extend({
 ```
 The following objects will be accessible:
 ```
-view.options.model
-view.getView('.nested-view').options.model
-view.getView('.nested-view').options.nested_model
+$.when(view.fetchObjects()).then(function() {
+  console.log(view.options.model);
+  console.log(view.getView('.nested-view').options.model);
+  console.log(view.getView('.nested-view').options.nested_model);
+});
 ```
 
 ### Support
