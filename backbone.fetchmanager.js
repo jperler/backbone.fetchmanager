@@ -1,5 +1,11 @@
+
+/*
+backbone.fetchmanager.js
+Copyright 2014, Justin Perler (@jperler)
+backbone.fetchmanager.js may be freely distributed under the MIT license.
+ */
+
 (function() {
-  'backbone.fetchmanager.js\nCopyright 2014, Justin Perler (@jperler)\nbackbone.fetchmanager.js may be freely distributed under the MIT license.';
   var _configure;
 
   (function(Backbone) {

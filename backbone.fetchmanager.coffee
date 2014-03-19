@@ -1,8 +1,8 @@
-'''
+###
 backbone.fetchmanager.js
 Copyright 2014, Justin Perler (@jperler)
 backbone.fetchmanager.js may be freely distributed under the MIT license.
-'''
+###
 
 do (Backbone) -> _.extend Backbone.Layout.prototype,
 
