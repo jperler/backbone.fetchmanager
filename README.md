@@ -45,11 +45,17 @@ new Backbone.Layout({
 });
 ```
 
-
 #### Backbone.Layout.fetchObjects()
 Recursively fetches all view and nested view objects and adds each object's reference to all of its children.
 
 ```
+Backbone.Layout.configure({
+  fetchOptions: {
+    // refs is the default but this can be overriden
+    attr: 'refs'
+  }  
+});
+
 var view = Backbone.Layout.extend({
   views: {
     '.nested-view': new NestedView({
@@ -66,9 +72,9 @@ var view = Backbone.Layout.extend({
 The following objects will be accessible:
 ```
 $.when(view.fetchObjects()).then(function() {
-  console.log(view.options.model);
-  console.log(view.getView('.nested-view').options.model);
-  console.log(view.getView('.nested-view').options.nested_model);
+  console.log(view.refs.model);
+  console.log(view.getView('.nested-view').refs.model);
+  console.log(view.getView('.nested-view').refs.nested_model);
 });
 ```
 

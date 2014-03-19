@@ -1,5 +1,7 @@
 (function() {
   'backbone.fetchmanager.js\nCopyright 2014, Justin Perler (@jperler)\nbackbone.fetchmanager.js may be freely distributed under the MIT license.';
+  var _configure;
+
   (function(Backbone) {
     return _.extend(Backbone.Layout.prototype, {
       fetchObjects: function() {
@@ -25,18 +27,13 @@
       getObjects: function() {
         return _.extend({}, this.objects, this.options.objects);
       },
-      addReferences: function() {
-        var addNestedReferences;
-        addNestedReferences = function(view, instance, property) {
-          view.options[property] = instance;
-          return view.getViews().each(function(v) {
-            addNestedReferences(v, instance, property);
+      addReferences: function(objects) {
+        objects = objects || this.getObjects();
+        _.extend(this[this.fetchOptions.attr], objects);
+        return this.getViews().each((function(_this) {
+          return function(v) {
+            v.addReferences(objects);
             return v.addReferences();
-          });
-        };
-        return _.each(this.getObjects(), (function(_this) {
-          return function(instance, property) {
-            return addNestedReferences(_this, instance, property);
           };
         })(this));
       },
@@ -56,5 +53,17 @@
       }
     });
   })(Backbone);
+
+  _configure = Backbone.Layout.configure;
+
+  Backbone.Layout.configure = function(options) {
+    var defaults;
+    _configure.apply(this, arguments);
+    defaults = {
+      attr: 'refs'
+    };
+    Backbone.Layout.prototype.fetchOptions = _.extend({}, defaults, options.fetchOptions);
+    return Backbone.Layout.prototype[Backbone.Layout.prototype.fetchOptions.attr] = Backbone.Layout.prototype[Backbone.Layout.prototype.fetchOptions.attr] || {};
+  };
 
 }).call(this);

@@ -37,17 +37,13 @@ do (Backbone) -> _.extend Backbone.Layout.prototype,
     getObjects: -> _.extend {}, @objects, @options.objects
 
     # Adds instance references to the view and all of its nested views
-    # inside view.options
-    addReferences: ->
-        # Recursive method to add references to all a view's nested views.
-        addNestedReferences = (view, instance, property) ->
-            view.options[property] = instance
-            view.getViews().each (v) ->
-                addNestedReferences v, instance, property
-                v.addReferences()
-        # Iterate through each object to add references.
-        _.each @getObjects(), (instance, property) =>
-            addNestedReferences @, instance, property
+    # inside view.options.
+    addReferences: (objects) ->
+        objects = objects or @getObjects()
+        _.extend @[@fetchOptions.attr], objects
+        @getViews().each (v) =>
+            v.addReferences objects
+            v.addReferences()
 
     # Builds an array of arrays of objects to be passed to the deferred
     # methods. This method is used to ensure that the outermost objects
@@ -59,5 +55,17 @@ do (Backbone) -> _.extend Backbone.Layout.prototype,
             instances.push _.values(view.getObjects())
             view.getViews().each (v) -> addInstances v
         addInstances @
-        # only consider values that contain instances
+        # only consider values that contain instances.
         _.filter instances, (i) -> i.length
+
+# Configururation override so we can add more options via the same function.
+_configure = Backbone.Layout.configure
+Backbone.Layout.configure = (options) ->
+    _configure.apply @, arguments
+    defaults =
+        attr: 'refs'
+    # Update accessor property to include defaults.
+    Backbone.Layout.prototype.fetchOptions = _.extend {}, defaults, options.fetchOptions
+    # Make sure to create the attribute if it doesn't exist.
+    Backbone.Layout.prototype[Backbone.Layout.prototype.fetchOptions.attr] =
+        Backbone.Layout.prototype[Backbone.Layout.prototype.fetchOptions.attr] or {}
