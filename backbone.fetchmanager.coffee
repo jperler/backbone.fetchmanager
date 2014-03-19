@@ -30,14 +30,23 @@ do (Backbone) -> _.extend Backbone.Layout.prototype,
             deferred = deferred.then ->
                 $.when.apply $, getPromises(instances)
 
+        # Notify instances when fetching is complete, this is more or less
+        # replacement hook for @initialize since we aren't instantiating views
+        # with objects.
+        deferred.then => @applyAll 'fetched'
+
         # Returns a deferred object so we know when fetching is done.
         deferred
 
     # Accessor method to ensure that all object are accounted for.
     getObjects: -> _.extend {}, @objects, @options.objects
 
-    # Adds instance references to the view and all of its nested views
-    # inside view.options.
+    # Applies a method to a view and all of it's nested views if it exists.
+    applyAll: (method) ->
+        @fetched?.apply @
+        @getViews().each (v) -> v.applyAll method
+
+    # Adds instance references to the view and all of its nested views.
     addReferences: (objects) ->
         objects = objects or @getObjects()
         _.extend @[@fetchOptions.attr], objects

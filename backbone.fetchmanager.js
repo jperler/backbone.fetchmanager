@@ -28,10 +28,24 @@ backbone.fetchmanager.js may be freely distributed under the MIT license.
             return $.when.apply($, getPromises(instances));
           });
         });
+        deferred.then((function(_this) {
+          return function() {
+            return _this.applyAll('fetched');
+          };
+        })(this));
         return deferred;
       },
       getObjects: function() {
         return _.extend({}, this.objects, this.options.objects);
+      },
+      applyAll: function(method) {
+        var _ref;
+        if ((_ref = this.fetched) != null) {
+          _ref.apply(this);
+        }
+        return this.getViews().each(function(v) {
+          return v.applyAll(method);
+        });
       },
       addReferences: function(objects) {
         objects = objects || this.getObjects();

@@ -78,5 +78,21 @@ $.when(view.fetchObjects()).then(function() {
 });
 ```
 
+#### Backbone.Layout.fetched() (optional)
+Callback function after all promises are fetched. This is useful to prep views with data since instances aren't fetched yet at the point of instantiating views.
+```
+new Backbone.View.extend({
+  objects: {
+    model: new Backbone.Model()
+  },
+  fetched: function() {
+    @model = @refs.model;
+  },
+  serialize: function() {
+    return @model.toJSON();
+  }
+})
+```
+
 ### Support
 Please let me know what you think of this approach and if you have any thoughts and/or suggestions!
